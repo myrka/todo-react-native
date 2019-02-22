@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { CheckBox, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
+import { EmptyScreen } from './EmptyScreen';
 
 export class TodoList extends Component {
     render () {
@@ -8,7 +9,8 @@ export class TodoList extends Component {
         return (
             <ScrollView style={styles.container}>
                 {
-                    todoList.map((todo) => (
+                    todoList.length !== 0
+                    ? todoList.map((todo) => (
                         <View key={todo.id} style={styles.todoRow}>
                             <View style={styles.todoItem}>
                                 <CheckBox
@@ -24,6 +26,7 @@ export class TodoList extends Component {
                             />
                         </View>
                     ))
+                    : <EmptyScreen />
                 }
             </ScrollView>
         )
