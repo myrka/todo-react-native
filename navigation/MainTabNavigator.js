@@ -18,8 +18,8 @@ ActiveTodosStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-clipboard'}`
+          : 'md-clipboard'
       }
     />
   ),
@@ -34,7 +34,7 @@ CompletedTodosStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'ios-checkmark-circle-outline' : 'md-checkmark-circle-outline'}
     />
   ),
 };
@@ -48,13 +48,13 @@ AllTodosStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-paper' : 'md-paper'}
     />
   ),
 };
 
 export default createBottomTabNavigator({
+  AllTodosStack,
   ActiveTodosStack,
   CompletedTodosStack,
-  AllTodosStack,
 });

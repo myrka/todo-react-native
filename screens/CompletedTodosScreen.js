@@ -1,27 +1,25 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { TodoAppContext } from '../app-context';
+import { TodoList } from '../components/TodoList';
 
 export default class CompletedTodosScreen extends React.Component {
   static navigationOptions = {
-    title: 'Links',
+    title: 'Completed Todos',
   };
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoLinksView and replace it with your
-           * content, we just wanted to provide you with some helpful links */}
-        <ExpoLinksView />
-      </ScrollView>
+        <TodoAppContext.Consumer>
+          {
+            ({ completedTodos, removeTodo, updateTodo }) => (
+                <TodoList
+                    todoList={completedTodos}
+                    removeTodo={removeTodo}
+                    updateTodo={updateTodo}
+                />
+            )
+          }
+        </TodoAppContext.Consumer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-  },
-});

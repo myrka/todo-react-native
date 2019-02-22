@@ -1,14 +1,25 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
+import { TodoAppContext } from '../app-context';
+import { TodoList } from '../components/TodoList';
 
 export default class AllTodosScreen extends React.Component {
   static navigationOptions = {
-    title: 'app.json',
+    title: 'All todos',
   };
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
-    return <ExpoConfigView />;
+    return (
+        <TodoAppContext.Consumer>
+          {
+            ({ todos, removeTodo, updateTodo }) => (
+                <TodoList
+                    todoList={todos}
+                    removeTodo={removeTodo}
+                    updateTodo={updateTodo}
+                />
+            )
+          }
+        </TodoAppContext.Consumer>
+    );
   }
 }
