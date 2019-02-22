@@ -48,5 +48,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         margin: 10,
-    }
+    },
 });
