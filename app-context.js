@@ -26,6 +26,26 @@ export const initialTodos = [
         label: 'Todo 6',
         isCompleted: false,
     },
+    {
+        id: 7,
+        label: 'Todo 7',
+        isCompleted: false,
+    },
+    {
+        id: 8,
+        label: 'Todo 8',
+        isCompleted: false,
+    },
+    {
+        id: 9,
+        label: 'Todo 9',
+        isCompleted: true,
+    },
+    {
+        id: 10,
+        label: 'Todo 10',
+        isCompleted: false,
+    },
 ];
 
 export const TodoAppContext = React.createContext({

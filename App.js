@@ -28,6 +28,18 @@ export default class App extends React.Component {
       })
     };
 
+    this.addTodo = (value) => {
+      this.setState((state) => {
+        const allTodos = [...state.todos];
+        const newTodo = { id: state.todos.length + 1, isCompleted: false, label: value }
+
+        allTodos.push(newTodo);
+
+        const { todos, completedTodos, activeTodos } = filterTodos(allTodos);
+        return { todos, completedTodos, activeTodos }
+      })
+    };
+
     const { todos, completedTodos, activeTodos } = filterTodos(initialTodos);
     this.state = {
       todos,
@@ -35,6 +47,7 @@ export default class App extends React.Component {
       activeTodos,
       removeTodo: this.removeTodo,
       updateTodo: this.updateTodo,
+      addTodo: this.addTodo,
     };
   }
 
