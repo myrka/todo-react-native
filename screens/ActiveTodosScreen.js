@@ -9,17 +9,17 @@ export default class ActiveTodosScreen extends React.Component {
 
   render() {
     return (
-        <TodoAppContext.Consumer>
-          {
-            ({ activeTodos, removeTodo, updateTodo }) => (
-                <TodoList
-                    todoList={activeTodos}
-                    removeTodo={removeTodo}
-                    updateTodo={updateTodo}
-                />
-            )
-          }
-        </TodoAppContext.Consumer>
+      <TodoAppContext.Consumer>
+        {
+          ({ activeTodos, removeTodo, updateTodo }) => (
+            <TodoList
+              todoList={activeTodos}
+              removeTodo={removeTodo}
+              updateTodo={updateTodo}
+            />
+          )
+        }
+      </TodoAppContext.Consumer>
     );
   }
 }

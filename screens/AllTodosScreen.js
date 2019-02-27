@@ -11,72 +11,77 @@ export default class AllTodosScreen extends React.Component {
 
   state = {
     newTodoText: '',
-    modalVisible: false,
+    isModalVisible: false,
   };
 
   clearTodoText = () => {
     this.setState({
-      newTodoText: ''
+      newTodoText: '',
     });
   };
 
-  closeModal = () => {
+  hideModal = () => {
     this.setState({
-      modalVisible: false,
-    })
+      isModalVisible: false,
+    });
+  };
+
+  closeModalView = () => {
+    this.clearTodoText();
+    this.hideModal();
   };
 
   render() {
+    const {
+      isModalVisible,
+      newTodoText,
+    } = this.state;
+
     return (
       <TodoAppContext.Consumer>
         {
           ({ todos, removeTodo, updateTodo, addTodo }) => (
-              <View style={{flex: 1, position: 'relative'}}>
-                <TodoList
-                    todoList={todos}
-                    removeTodo={removeTodo}
-                    updateTodo={updateTodo}
+            <View style={styles.container}>
+              <TodoList
+                todoList={todos}
+                removeTodo={removeTodo}
+                updateTodo={updateTodo}
+              />
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => this.setState({ isModalVisible: true })}
+              >
+                <Icon.Ionicons
+                  name={Platform.OS === 'ios' ? 'ios-add' : 'md-add'}
+                  size={25}
+                  color="#ffffff"
                 />
-                <TouchableOpacity
-                    style={styles.addButton}
-                    onPress={() => this.setState({modalVisible: true})}
+                <Modal
+                  animationType="slide"
+                  transparent={false}
+                  visible={isModalVisible}
+                  onRequestClose={this.closeModalView}
                 >
-                  <Icon.Ionicons
-                      name={Platform.OS === 'ios' ? 'ios-add' : 'md-add'}
-                      size={25}
-                      color="#ffffff"
-                  />
-                  <Modal
-                      animationType="slide"
-                      transparent={false}
-                      visible={this.state.modalVisible}
-                      style={{flex: 0.5}}
-                      onRequestClose={() => {
-                        this.clearTodoText();
-                        this.closeModal();
-                      }}>
-                    <View style={{margin: 22}}>
-                      <Text
-                          style={{fontSize: 16, marginBottom: 15 }}
-                          selectable={true}
-                          selectionColor="#ff00ff"
-                      > Add your Todo item </Text>
-                      <TextInput
-                          autoFocus
-                          style={styles.input}
-                          value={this.state.newTodoText}
-                          onChangeText={(text) => this.setState({ newTodoText: text })}
-                          onEndEditing={() => {
-                            addTodo(this.state.newTodoText);
-                            this.clearTodoText();
-                            this.closeModal();
-                          }}
-                      />
-                    </View>
-                  </Modal>
-                </TouchableOpacity>
-
-              </View>
+                  <View style={styles.modalContainer}>
+                    <Text
+                      style={styles.label}
+                      selectable={true}
+                      selectionColor="#ff00ff"
+                    > Add your Todo item </Text>
+                    <TextInput
+                      autoFocus
+                      style={styles.input}
+                      value={newTodoText}
+                      onChangeText={(text) => this.setState({ newTodoText: text })}
+                      onEndEditing={() => {
+                        addTodo(newTodoText);
+                        this.closeModalView();
+                      }}
+                    />
+                  </View>
+                </Modal>
+              </TouchableOpacity>
+            </View>
           )
         }
       </TodoAppContext.Consumer>
@@ -85,6 +90,17 @@ export default class AllTodosScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    position: 'relative',
+  },
+  modalContainer: {
+    margin: 25,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 15,
+  },
   addButton: {
     display: 'flex',
     position: 'absolute',
@@ -94,7 +110,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     width: 50,
-    borderRadius: 50/2,
+    borderRadius: 50 / 2,
     backgroundColor: '#71ce94',
   },
   input: {
@@ -103,5 +119,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 5,
     paddingRight: 5,
-  }
+  },
 });

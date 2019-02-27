@@ -9,17 +9,17 @@ export default class CompletedTodosScreen extends React.Component {
 
   render() {
     return (
-        <TodoAppContext.Consumer>
-          {
-            ({ completedTodos, removeTodo, updateTodo }) => (
-                <TodoList
-                    todoList={completedTodos}
-                    removeTodo={removeTodo}
-                    updateTodo={updateTodo}
-                />
-            )
-          }
-        </TodoAppContext.Consumer>
+      <TodoAppContext.Consumer>
+        {
+          ({ completedTodos, removeTodo, updateTodo }) => (
+            <TodoList
+              todoList={completedTodos}
+              removeTodo={removeTodo}
+              updateTodo={updateTodo}
+            />
+          )
+        }
+      </TodoAppContext.Consumer>
     );
   }
 }
