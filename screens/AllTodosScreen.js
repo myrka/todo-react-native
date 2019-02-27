@@ -1,9 +1,10 @@
 import { Icon } from 'expo';
 import React from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View, Text, TextInput, Modal } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { TodoAppContext } from '../app-context';
 import { ModalWindow } from '../components/Modal';
 import { TodoList } from '../components/TodoList';
+import { TODO_LIST_NAMES } from '../constants/ListNames';
 
 export default class AllTodosScreen extends React.Component {
   static navigationOptions = {
@@ -38,13 +39,10 @@ export default class AllTodosScreen extends React.Component {
     return (
       <TodoAppContext.Consumer>
         {
-          ({ todos, removeTodo, updateTodoStatus, addTodo, updateTodoText }) => (
+          ({ addTodo }) => (
             <View style={styles.container}>
               <TodoList
-                todoList={todos}
-                removeTodo={removeTodo}
-                updateTodoStatus={updateTodoStatus}
-                updateTodoText={updateTodoText}
+                listName={TODO_LIST_NAMES.ALL}
               />
               <TouchableOpacity
                 style={styles.addButton}

@@ -36,7 +36,7 @@ export default class App extends React.Component {
     this.addTodo = (value) => {
       this.setState((state) => {
         const allTodos = [...state.todos];
-        const newTodo = { id: state.todos.length + 1, isCompleted: false, label: value };
+        const newTodo = { id: state.todos.length + 5, isCompleted: false, label: value };
 
         allTodos.push(newTodo);
 

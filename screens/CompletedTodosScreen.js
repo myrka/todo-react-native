@@ -1,6 +1,6 @@
 import React from 'react';
-import { TodoAppContext } from '../app-context';
 import { TodoList } from '../components/TodoList';
+import { TODO_LIST_NAMES } from '../constants/ListNames';
 
 export default class CompletedTodosScreen extends React.Component {
   static navigationOptions = {
@@ -9,18 +9,9 @@ export default class CompletedTodosScreen extends React.Component {
 
   render() {
     return (
-      <TodoAppContext.Consumer>
-        {
-          ({ completedTodos, removeTodo, updateTodoStatus, updateTodoText }) => (
-            <TodoList
-              todoList={completedTodos}
-              removeTodo={removeTodo}
-              updateTodoStatus={updateTodoStatus}
-              updateTodoText={updateTodoText}
-            />
-          )
-        }
-      </TodoAppContext.Consumer>
+      <TodoList
+        listName={TODO_LIST_NAMES.COMPLETED}
+      />
     );
   }
 }
