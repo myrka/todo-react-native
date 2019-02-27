@@ -20,6 +20,12 @@ export default class AllTodosScreen extends React.Component {
     });
   };
 
+  openModal = () => {
+    this.setState({
+      isModalVisible: true,
+    });
+  };
+
   closeModalView = () => {
     this.hideModal();
   };
@@ -32,16 +38,17 @@ export default class AllTodosScreen extends React.Component {
     return (
       <TodoAppContext.Consumer>
         {
-          ({ todos, removeTodo, updateTodo, addTodo }) => (
+          ({ todos, removeTodo, updateTodoStatus, addTodo, updateTodoText }) => (
             <View style={styles.container}>
               <TodoList
                 todoList={todos}
                 removeTodo={removeTodo}
-                updateTodo={updateTodo}
+                updateTodoStatus={updateTodoStatus}
+                updateTodoText={updateTodoText}
               />
               <TouchableOpacity
                 style={styles.addButton}
-                onPress={() => this.setState({ isModalVisible: true })}
+                onPress={this.openModal}
               >
                 <Icon.Ionicons
                   name={Platform.OS === 'ios' ? 'ios-add' : 'md-add'}

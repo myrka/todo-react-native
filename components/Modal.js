@@ -40,33 +40,43 @@ export class ModalWindow extends Component {
     this.closeModal();
   };
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(this.props.inputText !== prevProps.inputText) {
+      this.setState({
+        inputText: this.props.inputText,
+      });
+    }
+  }
+
   render () {
     const { isOpen } = this.props;
 
     const { inputText } = this.state;
 
     return (
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={isOpen}
-        onRequestClose={this.closeModal}
-      >
-        <View style={styles.modalContainer}>
-          <Text
-            style={styles.label}
-            selectable={true}
-            selectionColor="#ff00ff"
-          > Add your Todo item </Text>
-          <TextInput
-            autoFocus
-            style={styles.input}
-            value={inputText}
-            onChangeText={this.updateInputText}
-            onEndEditing={this.finishInputEditing}
-          />
-        </View>
-      </Modal>
+      <View>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={isOpen}
+          onRequestClose={this.closeModal}
+        >
+          <View style={styles.modalContainer}>
+            <Text
+              style={styles.label}
+              selectable={true}
+              selectionColor="#ff00ff"
+            >Update your item</Text>
+            <TextInput
+              autoFocus
+              style={styles.input}
+              value={inputText}
+              onChangeText={this.updateInputText}
+              onEndEditing={this.finishInputEditing}
+            />
+          </View>
+        </Modal>
+      </View>
     )
   }
 }

@@ -11,19 +11,24 @@ export default class App extends React.Component {
       this.setState((state) => {
         const newTodos = [...state.todos];
         const todoIndex = newTodos.findIndex((todo) => todo.id === todoId);
+
         newTodos.splice(todoIndex, 1);
 
         const { todos, completedTodos, activeTodos } = filterTodos(newTodos);
+
         return { todos, completedTodos, activeTodos }
       })
     };
 
-    this.updateTodo = (todoId) => {
+    this.updateTodoStatus = (todoId) => {
       this.setState((state) => {
         const newTodos = [...state.todos];
         const checkedItem = newTodos.find((todo) => todo.id === todoId);
+
         checkedItem.isCompleted = !checkedItem.isCompleted;
+
         const { todos, completedTodos, activeTodos } = filterTodos(newTodos);
+
         return { todos, completedTodos, activeTodos }
       })
     };
@@ -31,7 +36,7 @@ export default class App extends React.Component {
     this.addTodo = (value) => {
       this.setState((state) => {
         const allTodos = [...state.todos];
-        const newTodo = { id: state.todos.length + 1, isCompleted: false, label: value }
+        const newTodo = { id: state.todos.length + 1, isCompleted: false, label: value };
 
         allTodos.push(newTodo);
 
@@ -40,14 +45,29 @@ export default class App extends React.Component {
       })
     };
 
+    this.updateTodoText = (todoId, newLabel) => {
+      this.setState((state) => {
+        const newTodos = [...state.todos];
+        const editedItem = newTodos.find((todo) => todo.id === todoId);
+
+        editedItem.label = newLabel;
+
+        const { todos, completedTodos, activeTodos } = filterTodos(newTodos);
+
+        return { todos, completedTodos, activeTodos }
+      })
+    };
+
     const { todos, completedTodos, activeTodos } = filterTodos(initialTodos);
+
     this.state = {
       todos,
       completedTodos,
       activeTodos,
       removeTodo: this.removeTodo,
-      updateTodo: this.updateTodo,
+      updateTodoStatus: this.updateTodoStatus,
       addTodo: this.addTodo,
+      updateTodoText: this.updateTodoText,
     };
   }
 

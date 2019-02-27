@@ -1,10 +1,36 @@
 import React, { Component } from 'react';
 import { CheckBox, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import { EmptyScreen } from './EmptyScreen';
+import { ModalWindow } from './Modal';
 
 export class TodoList extends Component {
+  state = {
+    isModalVisible: false,
+    activeTodoLabel: '',
+    activeTodoId: null,
+  };
+
+  hideModal = () => {
+    this.setState({
+      isModalVisible: false,
+    });
+  };
+
+  openModal = (todoId, todoLabel) => {
+    this.setState({
+      activeTodoId: todoId,
+      activeTodoLabel: todoLabel,
+      isModalVisible: true,
+    })
+  };
+
+  closeModalView = () => {
+    this.hideModal();
+  };
+
   render() {
-    const { todoList, removeTodo, updateTodo } = this.props;
+    const { todoList, removeTodo, updateTodoStatus, updateTodoText } = this.props;
+    const { isModalVisible, activeTodoId, activeTodoLabel } = this.state;
 
     return (
       <ScrollView style={styles.container}>
@@ -15,9 +41,13 @@ export class TodoList extends Component {
                 <View style={styles.todoItem}>
                   <CheckBox
                     value={todo.isCompleted}
-                    onChange={() => updateTodo(todo.id)}
+                    onChange={() => updateTodoStatus(todo.id)}
                   />
-                  <Text>{todo.label}</Text>
+                  <Text
+                    onPress={() => this.openModal(todo.id, todo.label)}
+                  >
+                    {todo.label}
+                  </Text>
                 </View>
                 <Button
                   title="X"
@@ -28,6 +58,12 @@ export class TodoList extends Component {
             ))
             : <EmptyScreen/>
         }
+        <ModalWindow
+          inputText={activeTodoLabel}
+          isOpen={isModalVisible}
+          onModalClose={this.closeModalView}
+          editingAction={(newText) => updateTodoText(activeTodoId, newText)}
+        />
       </ScrollView>
     );
   }

@@ -11,11 +11,12 @@ export default class ActiveTodosScreen extends React.Component {
     return (
       <TodoAppContext.Consumer>
         {
-          ({ activeTodos, removeTodo, updateTodo }) => (
+          ({ activeTodos, removeTodo, updateTodoStatus, updateTodoText }) => (
             <TodoList
               todoList={activeTodos}
               removeTodo={removeTodo}
-              updateTodo={updateTodo}
+              updateTodoStatus={updateTodoStatus}
+              updateTodoText={updateTodoText}
             />
           )
         }

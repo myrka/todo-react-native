@@ -52,9 +52,10 @@ export const TodoAppContext = React.createContext({
     todos: [],
     activeTodos: [],
     completedTodos: [],
-    updateTodo: () => {},
+    updateTodoStatus: () => {},
     addTodo: () => {},
     removeTodo: () => {},
+    updateTodoText: () => {},
 });
 
 export const filterTodos = (todos) => {
