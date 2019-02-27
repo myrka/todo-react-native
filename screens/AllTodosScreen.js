@@ -2,6 +2,7 @@ import { Icon } from 'expo';
 import React from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View, Text, TextInput, Modal } from 'react-native';
 import { TodoAppContext } from '../app-context';
+import { ModalWindow } from '../components/Modal';
 import { TodoList } from '../components/TodoList';
 
 export default class AllTodosScreen extends React.Component {
@@ -10,14 +11,7 @@ export default class AllTodosScreen extends React.Component {
   };
 
   state = {
-    newTodoText: '',
     isModalVisible: false,
-  };
-
-  clearTodoText = () => {
-    this.setState({
-      newTodoText: '',
-    });
   };
 
   hideModal = () => {
@@ -27,14 +21,12 @@ export default class AllTodosScreen extends React.Component {
   };
 
   closeModalView = () => {
-    this.clearTodoText();
     this.hideModal();
   };
 
   render() {
     const {
       isModalVisible,
-      newTodoText,
     } = this.state;
 
     return (
@@ -56,30 +48,11 @@ export default class AllTodosScreen extends React.Component {
                   size={25}
                   color="#ffffff"
                 />
-                <Modal
-                  animationType="slide"
-                  transparent={false}
-                  visible={isModalVisible}
-                  onRequestClose={this.closeModalView}
-                >
-                  <View style={styles.modalContainer}>
-                    <Text
-                      style={styles.label}
-                      selectable={true}
-                      selectionColor="#ff00ff"
-                    > Add your Todo item </Text>
-                    <TextInput
-                      autoFocus
-                      style={styles.input}
-                      value={newTodoText}
-                      onChangeText={(text) => this.setState({ newTodoText: text })}
-                      onEndEditing={() => {
-                        addTodo(newTodoText);
-                        this.closeModalView();
-                      }}
-                    />
-                  </View>
-                </Modal>
+                <ModalWindow
+                  isOpen={isModalVisible}
+                  onModalClose={this.closeModalView}
+                  editingAction={addTodo}
+                />
               </TouchableOpacity>
             </View>
           )
@@ -94,13 +67,6 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
   },
-  modalContainer: {
-    margin: 25,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 15,
-  },
   addButton: {
     display: 'flex',
     position: 'absolute',
@@ -112,12 +78,5 @@ const styles = StyleSheet.create({
     width: 50,
     borderRadius: 50 / 2,
     backgroundColor: '#71ce94',
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingLeft: 5,
-    paddingRight: 5,
   },
 });
